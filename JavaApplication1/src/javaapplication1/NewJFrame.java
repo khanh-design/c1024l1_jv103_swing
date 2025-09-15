@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -340,7 +341,7 @@ public class NewJFrame extends javax.swing.JFrame {
         }
         
         
-        String gender = "";
+        "Login Thanh cong"String gender = "";
         if (namRadioButton.isSelected()) {
             gender += "nam";
         } 
@@ -358,6 +359,17 @@ public class NewJFrame extends javax.swing.JFrame {
             passwordLabel.setText(password + "\n So thich: " + favourite + "\n Gioi tinh: " + gender + ""
                 + "\nTinh thanh: " + province.getCode() + "-" + province.getName()
                 + "\nNgon ngu" + str);
+        }
+        
+//        Thong bao: 
+        
+//        JOptionPane.showMessageDialog(this, "Login Thanh cong", "Thong bao", JOptionPane.INFORMATION_MESSAGE);
+//        String hello = JOptionPane.showInputDialog(this, "xin chao", "nhap ten", JOptionPane.OK_OPTION);
+//        passwordLabel.setText(hello);
+
+          int x = JOptionPane.showConfirmDialog(this, "Ban co muon xoa hay khong?");
+        if (x == JOptionPane.YES_OPTION) {
+            passwordLabel.setText("xoa");
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
