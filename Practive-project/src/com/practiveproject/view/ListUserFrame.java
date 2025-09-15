@@ -51,7 +51,7 @@ public class ListUserFrame extends javax.swing.JFrame {
         user = userService.getAllUsers();
         for (User user1 : user) {
             defaultTableModel.addRow(new Object[] {user1.getId(), user1.getName(), user1.getPhone(), user1.getUsername(),
-                user1.getPassword(), user1.getRole(), user1.getFavouties()});
+                user1.getPassword(), user1.getRole(),user1.getAbout(), user1.getFavouties()});
         }
         
     }
@@ -66,14 +66,19 @@ public class ListUserFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        addUserButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
         refeshButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Them moi");
+        addUserButton.setText("Them moi");
+        addUserButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addUserButtonActionPerformed(evt);
+            }
+        });
 
         userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -104,7 +109,7 @@ public class ListUserFrame extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(addUserButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(refeshButton))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE))
@@ -115,7 +120,7 @@ public class ListUserFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(addUserButton)
                     .addComponent(refeshButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -131,6 +136,12 @@ public class ListUserFrame extends javax.swing.JFrame {
         
         setData(userService.getAllUsers());
     }//GEN-LAST:event_refeshButtonActionPerformed
+
+    private void addUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserButtonActionPerformed
+        // TODO add your handling code here:
+        new AddUserFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_addUserButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,7 +169,7 @@ public class ListUserFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton addUserButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton refeshButton;
     private javax.swing.JTable userTable;

@@ -50,7 +50,7 @@ public class UserDAO {
 
     public void addUser(User user) {
         Connection connection = JDBCConnection.getConnection();
-        String sql = "INSERT INTO USER(NAME, PHONE, USERNAME, PASSWORD, ROLE, FAVOURITES) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO USER(name, phone, user_name, password, role, about, favourites) VALUES(?,?,?,?,?,?,?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, user.getName());
