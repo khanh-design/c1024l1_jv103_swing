@@ -4,6 +4,7 @@
  */
 package com.practiveproject.view;
 
+import com.practiveproject.dao.UserDAO;
 import com.practiveproject.model.User;
 import com.practiveproject.service.UserService;
 
@@ -11,19 +12,58 @@ import com.practiveproject.service.UserService;
  *
  * @author Admin
  */
-public class AddUserFrame extends javax.swing.JFrame {
-
+public class EditUserFrame extends javax.swing.JFrame {
+    private User user;
     UserService userService;
-    User user;
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AddUserFrame.class.getName());
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(EditUserFrame.class.getName());
 
     /**
-     * Creates new form AddUserFrame
+     * Creates new form EditUserFrame
      */
-    public AddUserFrame() {
+    public EditUserFrame(int userId) {
         initComponents();
         userService = new UserService();
-        user = new User();
+        user = userService.getUserById(userId);
+        
+        idTextField.setText(String.valueOf(user.getId()));
+        nameTextField.setText(user.getName());
+        phoneTextField.setText(user.getPhone());
+        userNameTextField.setText(user.getUsername());
+        aboutTextArea.setText(user.getAbout());
+        
+        String favourites = user.getFavouties();
+        if (favourites != null) {
+            String[] fav = favourites.split(",");
+            for (String f : fav) {
+                if (f.equals("music")) {
+                    musicCheckBox.setSelected(true);
+                }
+                
+                if (f.equals("movie")) {
+                    movieCheckBox.setSelected(true);
+                }
+            }
+        }
+        user.setFavouties(favourites);
+        
+        String role = user.getRole();
+        if (role != null) {
+            if (role.equals("ROLE_ADMIN")) {
+                adminRadioButton.setSelected(true);
+            }
+            
+            if (role.equals("ROLE_USER")) {
+                userRadioButton.setSelected(true);
+            }
+            
+        }
+        user.setRole(role);
+        
+        userService.updateUser(user);
+        new ListUserFrame().setVisible(true);
+        this.dispose();
+        
     }
 
     /**
@@ -36,62 +76,55 @@ public class AddUserFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        nameTextField = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        phoneTextField = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         userNameTextField = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        passwordField = new javax.swing.JPasswordField();
-        musicCheckBox = new javax.swing.JCheckBox();
-        movieCheckBox = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         aboutTextArea = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
         adminRadioButton = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
         userRadioButton = new javax.swing.JRadioButton();
+        nameTextField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        phoneTextField = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        passwordField = new javax.swing.JPasswordField();
         backButton = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        musicCheckBox = new javax.swing.JCheckBox();
+        movieCheckBox = new javax.swing.JCheckBox();
         submitButton = new javax.swing.JButton();
-
-        jButton1.setText("jButton1");
+        jLabel9 = new javax.swing.JLabel();
+        idTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Them moi user");
-
-        jLabel2.setText("Ten: ");
-
-        jLabel3.setText("Phone");
-
-        jLabel4.setText("Tai Khoan");
-
-        jLabel5.setText("Mat Khau");
 
         jLabel6.setText("Vai tro");
 
         jLabel7.setText("So thich");
 
-        jLabel8.setText("Gioi thieu");
-
-        musicCheckBox.setText("nghe nhac");
-
-        movieCheckBox.setText("xem phim");
-
         aboutTextArea.setColumns(20);
         aboutTextArea.setRows(5);
         jScrollPane1.setViewportView(aboutTextArea);
 
+        jLabel1.setText("Sua nguoi dung");
+
         buttonGroup1.add(adminRadioButton);
         adminRadioButton.setText("Admin");
+
+        jLabel2.setText("Ten: ");
 
         buttonGroup1.add(userRadioButton);
         userRadioButton.setSelected(true);
         userRadioButton.setText("User");
+
+        jLabel3.setText("Phone");
+
+        jLabel8.setText("Gioi thieu");
+
+        jLabel4.setText("Tai Khoan");
 
         backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -100,74 +133,89 @@ public class AddUserFrame extends javax.swing.JFrame {
             }
         });
 
-        submitButton.setText("Tao nguoi dung");
+        jLabel5.setText("Mat Khau");
+
+        musicCheckBox.setText("nghe nhac");
+
+        movieCheckBox.setText("xem phim");
+
+        submitButton.setText("Sua nguoi dung");
         submitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitButtonActionPerformed(evt);
             }
         });
 
+        jLabel9.setText("Id");
+
+        idTextField.setEditable(false);
+        idTextField.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(userNameTextField))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(passwordField)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addGap(30, 30, 30)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(phoneTextField)
-                                    .addComponent(nameTextField)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(userNameTextField))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(passwordField)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(adminRadioButton)
-                                                .addGap(50, 50, 50)
-                                                .addComponent(userRadioButton))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(musicCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(52, 52, 52)
-                                                .addComponent(movieCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(0, 0, Short.MAX_VALUE))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
+                                        .addComponent(adminRadioButton)
+                                        .addGap(50, 50, 50)
+                                        .addComponent(userRadioButton))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(musicCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(52, 52, 52)
+                                        .addComponent(movieCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(backButton)))
-                .addGap(30, 30, 30))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(188, 188, 188)
+                        .addComponent(backButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel9))
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(phoneTextField)
+                            .addComponent(nameTextField)
+                            .addComponent(idTextField))))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(submitButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(158, 158, 158))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(8, 8, 8)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(backButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -202,7 +250,7 @@ public class AddUserFrame extends javax.swing.JFrame {
                         .addComponent(jLabel7)))
                 .addGap(27, 27, 27)
                 .addComponent(submitButton)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(17, 17, 17))
         );
 
         pack();
@@ -226,10 +274,10 @@ public class AddUserFrame extends javax.swing.JFrame {
             favourites += "music";
         }
         if (movieCheckBox.isSelected()) {
-            favourites += ",movie";
+            favourites += "movie";
         }
         user.setFavouties(favourites);
-        
+
         String role = "ROLE_USER";
         if (adminRadioButton.isSelected()) {
             role = "ROLE_ADMIN";
@@ -239,7 +287,7 @@ public class AddUserFrame extends javax.swing.JFrame {
         }
         user.setRole(role);
 
-        userService.addUser(user);
+        userService.updateUser(user);
         new ListUserFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_submitButtonActionPerformed
@@ -250,7 +298,7 @@ public class AddUserFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton adminRadioButton;
     private javax.swing.JButton backButton;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField idTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -259,6 +307,7 @@ public class AddUserFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JCheckBox movieCheckBox;
     private javax.swing.JCheckBox musicCheckBox;

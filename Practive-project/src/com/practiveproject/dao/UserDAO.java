@@ -68,7 +68,7 @@ public class UserDAO {
 
     public void updateUser(User user) {
         Connection connection = JDBCConnection.getConnection();
-        String sql = "UPDATE User SET NAME = ?, PHONE = ?, USERNAME = ?, PASSWORD = ?, ROLE = ?, ABOUT = ?, FAVOURITES = ?, WHERE ID = ?";
+        String sql = "UPDATE User SET name = ?, phone = ?, user_name = ?, password = ?, role = ?, about = ?, favourites = ? WHERE id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, user.getName());
@@ -86,14 +86,43 @@ public class UserDAO {
         }
     }
 
-    public void deleteUser(User user) {
+    public void deleteUser(int id) {
         Connection connection = JDBCConnection.getConnection();
         String sql = "DELETE FROM USER WHERE ID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, user.getId());
+            preparedStatement.setInt(1,id);
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+    
+        public User getUserById(int id) {
+        Connection connection = JDBCConnection.getConnection();
+        String sql = "SELECT * FROM USER WHERE ID = ?";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                User user1 = new User();
+                user1.setId(rs.getInt("id"));
+                user1.setName(rs.getString("name"));
+                user1.setPhone(rs.getString("phone"));
+                user1.setUsername(rs.getString("user_name"));
+                user1.setPassword(rs.getString("password"));
+                user1.setRole(rs.getString("role"));
+                user1.setAbout(rs.getString("about"));
+                user1.setFavouties(rs.getString("favourites"));
+
+                return user1;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }

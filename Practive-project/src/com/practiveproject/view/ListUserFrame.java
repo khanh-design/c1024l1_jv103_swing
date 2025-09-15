@@ -7,6 +7,7 @@ package com.practiveproject.view;
 import com.practiveproject.model.User;
 import com.practiveproject.service.UserService;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,9 +15,10 @@ import javax.swing.table.DefaultTableModel;
  * @author Admin
  */
 public class ListUserFrame extends javax.swing.JFrame {
+
     UserService userService;
     DefaultTableModel defaultTableModel;
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ListUserFrame.class.getName());
 
     /**
@@ -25,15 +27,15 @@ public class ListUserFrame extends javax.swing.JFrame {
     public ListUserFrame() {
         initComponents();
         userService = new UserService();
-        
+
         defaultTableModel = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
-            
+
         };
-        
+
         userTable.setModel(defaultTableModel);
         defaultTableModel.addColumn("id");
         defaultTableModel.addColumn("name");
@@ -43,19 +45,18 @@ public class ListUserFrame extends javax.swing.JFrame {
         defaultTableModel.addColumn("role");
         defaultTableModel.addColumn("about");
         defaultTableModel.addColumn("favourites");
-        
+
         setData(userService.getAllUsers());
     }
-    
+
     private void setData(List<User> user) {
         user = userService.getAllUsers();
         for (User user1 : user) {
-            defaultTableModel.addRow(new Object[] {user1.getId(), user1.getName(), user1.getPhone(), user1.getUsername(),
-                user1.getPassword(), user1.getRole(),user1.getAbout(), user1.getFavouties()});
+            defaultTableModel.addRow(new Object[]{user1.getId(), user1.getName(), user1.getPhone(), user1.getUsername(),
+                user1.getPassword(), user1.getRole(), user1.getAbout(), user1.getFavouties()});
         }
-        
+
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,6 +71,8 @@ public class ListUserFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
         refeshButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
+        updateButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,6 +104,20 @@ public class ListUserFrame extends javax.swing.JFrame {
             }
         });
 
+        deleteButton.setText("Xoa");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+
+        updateButton.setText("Sua");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -110,10 +127,14 @@ public class ListUserFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(addUserButton)
+                        .addGap(38, 38, 38)
+                        .addComponent(deleteButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(updateButton)
+                        .addGap(54, 54, 54)
                         .addComponent(refeshButton))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(6, 6, 6))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,7 +142,9 @@ public class ListUserFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addUserButton)
-                    .addComponent(refeshButton))
+                    .addComponent(refeshButton)
+                    .addComponent(deleteButton)
+                    .addComponent(updateButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -133,7 +156,6 @@ public class ListUserFrame extends javax.swing.JFrame {
     private void refeshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refeshButtonActionPerformed
         // TODO add your handling code here:
         defaultTableModel.setRowCount(0);
-        
         setData(userService.getAllUsers());
     }//GEN-LAST:event_refeshButtonActionPerformed
 
@@ -142,6 +164,35 @@ public class ListUserFrame extends javax.swing.JFrame {
         new AddUserFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_addUserButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        // TODO add your handling code here:
+        int row = userTable.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(ListUserFrame.this, "Vui Long chon user truoc", "Loi", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int confirm = JOptionPane.showConfirmDialog(ListUserFrame.this, "Ban chac chan muon xoa?");
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                int userId = Integer.valueOf(String.valueOf(userTable.getValueAt(row, 0)));
+                userService.deleteUser(userId);
+                new ListUserFrame().setVisible(true);
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        // TODO add your handling code here:
+        int row = userTable.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(ListUserFrame.this, "Vui Long chon user truoc", "Loi", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int userId = Integer.valueOf(String.valueOf(userTable.getValueAt(row, 0)));
+            new EditUserFrame(userId).setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_updateButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,8 +221,10 @@ public class ListUserFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addUserButton;
+    private javax.swing.JButton deleteButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton refeshButton;
+    private javax.swing.JButton updateButton;
     private javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables
 }
