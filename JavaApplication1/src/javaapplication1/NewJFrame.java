@@ -341,7 +341,7 @@ public class NewJFrame extends javax.swing.JFrame {
         }
         
         
-        "Login Thanh cong"String gender = "";
+        String gender = "";
         if (namRadioButton.isSelected()) {
             gender += "nam";
         } 
