@@ -5,7 +5,6 @@
 package com.practiveproject.dao;
 
 
-import com.practiveproject.model.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

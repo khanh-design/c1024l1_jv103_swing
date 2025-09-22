@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Auction Sequence Diagram</title>
+  <!-- Thêm mermaid.js -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+</head>
+<body>
+  <h2>Auction System Sequence Diagram</h2>
+  <div class="mermaid">
+    sequenceDiagram
+        participant Client
+        participant Server
+
+        Client->>Server: 1. Request tạo phòng đấu giá
+        Server-->>Client: 2. Response phòng đã tạo (ID phòng)
+
+        Client->>Server: 3. Request tham gia phòng đấu giá
+        Server-->>Client: 4. Response tham gia thành công
+
+        Client->>Server: 5. Gửi thông tin vật phẩm để bán
+        Server-->>Client: 6. Xác nhận vật phẩm đã được thêm vào hàng đợi
+
+        Server-->>Client: 7. Thông báo vật phẩm đang được đấu giá
+        Client->>Server: 8. Đặt giá (>= giá hiện tại + 100k)
+        Server-->>Client: 9. Xác nhận giá mới & broadcast cho tất cả client
+
+        Client->>Server: 10. Mua ngay với giá bán ngay
+        Server-->>Client: 11. Xác nhận bán ngay thành công
+
+        Server-->>Client: 12. Sau 3 phút không ai đặt thêm, gửi thông báo 3 lần
+        Server-->>Client: 13. Xác nhận người thắng đấu giá
+  </div>
+</body>
+</html>

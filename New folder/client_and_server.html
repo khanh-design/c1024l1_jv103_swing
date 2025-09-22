@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <svg viewBox="0 0 1400 1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+     refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1400" height="1000" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="700" y="30" text-anchor="middle" font-size="24" font-weight="bold" fill="#2c3e50">
+    Sơ đồ Hệ thống Đấu giá - Client và Server
+  </text>
+  
+  <!-- Client Side -->
+  <rect x="50" y="70" width="600" height="880" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" rx="10"/>
+  <text x="350" y="100" text-anchor="middle" font-size="20" font-weight="bold" fill="#1976d2">CLIENT</text>
+  
+  <!-- Server Side -->
+  <rect x="750" y="70" width="600" height="880" fill="#fff3e0" stroke="#f57c00" stroke-width="2" rx="10"/>
+  <text x="1050" y="100" text-anchor="middle" font-size="20" font-weight="bold" fill="#f57c00">SERVER</text>
+  
+  <!-- Client Functions -->
+  <!-- 1. Tạo phòng đấu giá -->
+  <rect x="80" y="130" width="540" height="80" fill="#ffffff" stroke="#1976d2" stroke-width="1" rx="5"/>
+  <text x="350" y="155" text-anchor="middle" font-size="16" font-weight="bold" fill="#1976d2">
+    1. TẠO PHÒNG ĐẤU GIÁ
+  </text>
+  <text x="90" y="175" font-size="12" fill="#333">
+    • Người dùng nhập tên phòng, mô tả
+  </text>
+  <text x="90" y="190" font-size="12" fill="#333">
+    • Gửi yêu cầu tạo phòng đến server
+  </text>
+  
+  <!-- 2. Tham gia phòng -->
+  <rect x="80" y="230" width="540" height="80" fill="#ffffff" stroke="#1976d2" stroke-width="1" rx="5"/>
+  <text x="350" y="255" text-anchor="middle" font-size="16" font-weight="bold" fill="#1976d2">
+    2. THAM GIA PHÒNG ĐẤU GIÁ
+  </text>
+  <text x="90" y="275" font-size="12" fill="#333">
+    • Xem danh sách phòng có sẵn
+  </text>
+  <text x="90" y="290" font-size="12" fill="#333">
+    • Chọn phòng và gửi yêu cầu tham gia
+  </text>
+  
+  <!-- 3. Bán vật phẩm -->
+  <rect x="80" y="330" width="540" height="100" fill="#ffffff" stroke="#1976d2" stroke-width="1" rx="5"/>
+  <text x="350" y="355" text-anchor="middle" font-size="16" font-weight="bold" fill="#1976d2">
+    3. BÁN VẬT PHẨM
+  </text>
+  <text x="90" y="375" font-size="12" fill="#333">
+    • Nhập thông tin vật phẩm (tên, mô tả, hình ảnh)
+  </text>
+  <text x="90" y="390" font-size="12" fill="#333">
+    • Nhập giá khởi điểm
+  </text>
+  <text x="90" y="405" font-size="12" fill="#333">
+    • Nhập giá bán ngay (nếu có)
+  </text>
+  <text x="90" y="420" font-size="12" fill="#333">
+    • Gửi thông tin vật phẩm đến server
+  </text>
+  
+  <!-- 4. Đấu giá -->
+  <rect x="80" y="450" width="540" height="80" fill="#ffffff" stroke="#1976d2" stroke-width="1" rx="5"/>
+  <text x="350" y="475" text-anchor="middle" font-size="16" font-weight="bold" fill="#1976d2">
+    4. ĐẤU GIÁ VẬT PHẨM
+  </text>
+  <text x="90" y="495" font-size="12" fill="#333">
+    • Xem vật phẩm đang được đấu giá
+  </text>
+  <text x="90" y="510" font-size="12" fill="#333">
+    • Nhập giá đấu và gửi đến server
+  </text>
+  
+  <!-- 5. Mua ngay -->
+  <rect x="80" y="550" width="540" height="80" fill="#ffffff" stroke="#1976d2" stroke-width="1" rx="5"/>
+  <text x="350" y="575" text-anchor="middle" font-size="16" font-weight="bold" fill="#1976d2">
+    5. MUA NGAY VẬT PHẨM
+  </text>
+  <text x="90" y="595" font-size="12" fill="#333">
+    • Xem giá bán ngay của vật phẩm
+  </text>
+  <text x="90" y="610" font-size="12" fill="#333">
+    • Nhấn mua ngay và gửi yêu cầu đến server
+  </text>
+  
+  <!-- Server Functions -->
+  <!-- 1. Quản lý hàng đợi -->
+  <rect x="780" y="130" width="540" height="120" fill="#ffffff" stroke="#f57c00" stroke-width="1" rx="5"/>
+  <text x="1050" y="155" text-anchor="middle" font-size="16" font-weight="bold" fill="#f57c00">
+    1. QUẢN LÝ HÀNG ĐỢI VẬT PHẨM
+  </text>
+  <text x="790" y="175" font-size="12" fill="#333">
+    • Nhận vật phẩm từ client và thêm vào hàng đợi
+  </text>
+  <text x="790" y="190" font-size="12" fill="#333">
+    • Sắp xếp vật phẩm theo thứ tự FIFO
+  </text>
+  <text x="790" y="205" font-size="12" fill="#333">
+    • Giới thiệu vật phẩm tiếp theo khi phiên đấu giá kết thúc
+  </text>
+  <text x="790" y="220" font-size="12" fill="#333">
+    • Thông báo thông tin vật phẩm đến tất cả client trong phòng
+  </text>
+  <text x="790" y="235" font-size="12" fill="#333">
+    • Lưu trạng thái của từng vật phẩm (đang đấu/đã bán/chờ đợi)
+  </text>
+  
+  <!-- 2. Tổ chức đấu giá -->
+  <rect x="780" y="270" width="540" height="200" fill="#ffffff" stroke="#f57c00" stroke-width="1" rx="5"/>
+  <text x="1050" y="295" text-anchor="middle" font-size="16" font-weight="bold" fill="#f57c00">
+    2. TỔ CHỨC ĐẤU GIÁ
+  </text>
+  <text x="790" y="315" font-size="12" fill="#333">
+    • Nhận lệnh đặt giá từ client
+  </text>
+  <text x="790" y="330" font-size="12" fill="#333">
+    • Kiểm tra giá đặt hợp lệ (≥ giá hiện tại + 100.000đ)
+  </text>
+  <text x="790" y="345" font-size="12" fill="#333">
+    • Nếu hợp lệ: Cập nhật giá cao nhất và thông báo đến tất cả client
+  </text>
+  <text x="790" y="360" font-size="12" fill="#333">
+    • Bắt đầu đếm ngược 3 phút từ lần đặt giá cuối
+  </text>
+  <text x="790" y="375" font-size="12" fill="#333">
+    • Sau 3 phút không có giá mới:
+  </text>
+  <text x="800" y="390" font-size="12" fill="#666">
+    - Gửi thông báo lần 1 (2 phút 30 giây còn lại)
+  </text>
+  <text x="800" y="405" font-size="12" fill="#666">
+    - Gửi thông báo lần 2 (2 phút còn lại)
+  </text>
+  <text x="800" y="420" font-size="12" fill="#666">
+    - Gửi thông báo lần 3 (1 phút 30 giây còn lại)
+  </text>
+  <text x="790" y="435" font-size="12" fill="#333">
+    • Sau 3 thông báo: Kết thúc đấu giá, thông báo người thắng
+  </text>
+  <text x="790" y="450" font-size="12" fill="#333">
+    • Chuyển sang vật phẩm tiếp theo trong hàng đợi
+  </text>
+  
+  <!-- 3. Xử lý mua ngay -->
+  <rect x="780" y="490" width="540" height="100" fill="#ffffff" stroke="#f57c00" stroke-width="1" rx="5"/>
+  <text x="1050" y="515" text-anchor="middle" font-size="16" font-weight="bold" fill="#f57c00">
+    3. XỬ LÝ MUA NGAY
+  </text>
+  <text x="790" y="535" font-size="12" fill="#333">
+    • Nhận yêu cầu mua ngay từ client
+  </text>
+  <text x="790" y="550" font-size="12" fill="#333">
+    • Kiểm tra vật phẩm có giá bán ngay không
+  </text>
+  <text x="790" y="565" font-size="12" fill="#333">
+    • Kết thúc đấu giá ngay lập tức, thông báo người mua
+  </text>
+  <text x="790" y="580" font-size="12" fill="#333">
+    • Chuyển sang vật phẩm tiếp theo
+  </text>
+  
+  <!-- Communication arrows -->
+  <!-- Tạo phòng -->
+  <line x1="620" y1="170" x2="780" y2="170" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="700" y="165" text-anchor="middle" font-size="10" fill="#4caf50">Tạo phòng</text>
+  
+  <!-- Tham gia phòng -->
+  <line x1="620" y1="270" x2="780" y2="200" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="700" y="235" text-anchor="middle" font-size="10" fill="#4caf50">Tham gia</text>
+  
+  <!-- Bán vật phẩm -->
+  <line x1="620" y1="380" x2="780" y2="190" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="700" y="285" text-anchor="middle" font-size="10" fill="#4caf50">Thêm vật phẩm</text>
+  
+  <!-- Đấu giá -->
+  <line x1="620" y1="490" x2="780" y2="370" stroke="#ff5722" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="700" y="430" text-anchor="middle" font-size="10" fill="#ff5722">Đặt giá</text>
+  
+  <!-- Phản hồi đấu giá -->
+  <line x1="780" y1="390" x2="620" y2="500" stroke="#ff5722" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="700" y="445" text-anchor="middle" font-size="10" fill="#ff5722">Cập nhật giá</text>
+  
+  <!-- Mua ngay -->
+  <line x1="620" y1="590" x2="780" y2="540" stroke="#9c27b0" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="700" y="565" text-anchor="middle" font-size="10" fill="#9c27b0">Mua ngay</text>
+  
+  <!-- Timer Info -->
+  <rect x="80" y="650" width="540" height="120" fill="#fff8e1" stroke="#ffc107" stroke-width="1" rx="5"/>
+  <text x="350" y="675" text-anchor="middle" font-size="14" font-weight="bold" fill="#f57c00">
+    LUỒNG THỜI GIAN ĐẤU GIÁ
+  </text>
+  <text x="90" y="695" font-size="11" fill="#333">
+    1. Có lệnh đặt giá mới → Reset timer về 3 phút
+  </text>
+  <text x="90" y="710" font-size="11" fill="#333">
+    2. Sau 2:30 → Thông báo "30 giây nữa sẽ kết thúc"
+  </text>
+  <text x="90" y="725" font-size="11" fill="#333">
+    3. Sau 2:00 → Thông báo "1 phút nữa sẽ kết thúc"  
+  </text>
+  <text x="90" y="740" font-size="11" fill="#333">
+    4. Sau 1:30 → Thông báo "30 giây nữa sẽ kết thúc"
+  </text>
+  <text x="90" y="755" font-size="11" fill="#333">
+    5. Sau 1:00 → Kết thúc đấu giá, thông báo người thắng
+  </text>
+  
+  <!-- Server State Management -->
+  <rect x="780" y="610" width="540" height="120" fill="#fff8e1" stroke="#ffc107" stroke-width="1" rx="5"/>
+  <text x="1050" y="635" text-anchor="middle" font-size="14" font-weight="bold" fill="#f57c00">
+    QUẢN LÝ TRẠNG THÁI SERVER
+  </text>
+  <text x="790" y="655" font-size="11" fill="#333">
+    • Lưu trữ danh sách phòng đấu giá và thành viên
+  </text>
+  <text x="790" y="670" font-size="11" fill="#333">
+    • Quản lý hàng đợi vật phẩm cho từng phòng
+  </text>
+  <text x="790" y="685" font-size="11" fill="#333">
+    • Theo dõi trạng thái đấu giá (đang diễn ra/kết thúc)
+  </text>
+  <text x="790" y="700" font-size="11" fill="#333">
+    • Lưu lịch sử đặt giá và thông tin người thắng
+  </text>
+  <text x="790" y="715" font-size="11" fill="#333">
+    • Đồng bộ thông tin real-time đến tất cả client
+  </text>
+  
+  <!-- Connection Rules -->
+  <rect x="80" y="790" width="540" height="80" fill="#ffebee" stroke="#f44336" stroke-width="1" rx="5"/>
+  <text x="350" y="815" text-anchor="middle" font-size="14" font-weight="bold" fill="#f44336">
+    QUY TẮC THAM GIA
+  </text>
+  <text x="90" y="835" font-size="11" fill="#333">
+    • Mỗi người chỉ được tham gia 1 phòng đấu giá tại 1 thời điểm
+  </text>
+  <text x="90" y="850" font-size="11" fill="#333">
+    • Giá đấu tối thiểu phải cao hơn giá hiện tại ít nhất 100.000đ
+  </text>
+  
+  <!-- Legend -->
+  <rect x="780" y="750" width="540" height="120" fill="#f3e5f5" stroke="#9c27b0" stroke-width="1" rx="5"/>
+  <text x="1050" y="775" text-anchor="middle" font-size="14" font-weight="bold" fill="#9c27b0">
+    CHÚ THÍCH MŨI TÊN
+  </text>
+  <line x1="790" y1="795" x2="820" y2="795" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="830" y="800" font-size="11" fill="#333">Yêu cầu từ Client đến Server</text>
+  
+  <line x1="790" y1="815" x2="820" y2="815" stroke="#ff5722" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="830" y="820" font-size="11" fill="#333">Tương tác đấu giá (2 chiều)</text>
+  
+  <line x1="790" y1="835" x2="820" y2="835" stroke="#9c27b0" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="830" y="840" font-size="11" fill="#333">Giao dịch mua ngay</text>
+  
+  <text x="790" y="860" font-size="11" fill="#666">
+    Server thông báo real-time đến tất cả client trong phòng
+  </text>
+</svg>
+</body>
+</html>
