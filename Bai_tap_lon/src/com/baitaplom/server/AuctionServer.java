@@ -135,7 +135,7 @@ public class AuctionServer {
     
     private Message handleJoinRoom(JoinRoomRequest joinRoomRequest) {
         try {
-            boolean success = roomService.joinRoom(joinRoomRequest);
+            boolean success = roomService.joinRoom(joinRoomRequest);  
             if (success) {
                 return new Message(Message.MessageType.JOIN_ROOM_RESPONSE, null, "Joined room successfully", true);
             } else {

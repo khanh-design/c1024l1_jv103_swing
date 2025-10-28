@@ -379,7 +379,7 @@ public class AuctionRoomFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 handleAuctionTimeout();
             }
-        });
+        });   
         auctionTimer.setRepeats(false);
         auctionTimer.start();
     }
@@ -597,7 +597,7 @@ public class AuctionRoomFrame extends JFrame {
 
             boolean success = itemService.updateCurrentPrice(currentAuctionItem.getId(), bidAmount);
 
-            if (success) {
+            if (success) { 
                 saveBid(currentAuctionItem.getId(), bidAmount);
                 
                 startAuctionTimer();
