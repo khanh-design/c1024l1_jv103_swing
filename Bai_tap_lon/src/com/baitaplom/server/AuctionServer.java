@@ -4,7 +4,6 @@
  */
 package com.baitaplom.server;
 
-import com.baitaplom.configuration.JDBCConfig;
 import com.baitaplom.model.AuctionRoom;
 import com.baitaplom.model.User;
 import com.baitaplom.model.dto.CreateRoomRequest;
@@ -15,12 +14,12 @@ import com.baitaplom.model.dto.Message;
 import com.baitaplom.model.dto.RegisterRequest;
 import com.baitaplom.service.RoomService;
 import com.baitaplom.service.UserService;
-import java.util.List;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
 
 /**
  *
@@ -57,7 +56,7 @@ public class AuctionServer {
     
     private void handleClient(Socket clientSocket) {
         try (ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
-             ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream())) {
+                ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream())) {
             
             while (true) {
                 Message request = (Message) ois.readObject();
